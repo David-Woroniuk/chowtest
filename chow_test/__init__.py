@@ -29,7 +29,7 @@ def chowtest(X, y, last_index_in_model_1, first_index_in_model_2, significance_l
   
   
   
-  def linear_residuals(X, y):   
+  def _linear_residuals(X, y):   
     '''
     This sub-function is obtains performance information relating to a linear regression (sklearn).
 
@@ -55,7 +55,7 @@ def chowtest(X, y, last_index_in_model_1, first_index_in_model_2, significance_l
     return summary_result
   
 
-  def calculate_RSS(X, y):
+  def _calculate_RSS(X, y):
     '''
     This sub-function returns the sum of squared residuals (errors).
 
