@@ -8,34 +8,30 @@ import numpy as np
 def chowtest(X, y, last_index_in_model_1, first_index_in_model_2, significance_level):
   '''
   This function conducts a Chow Test, returning the Chow Statistic and associated p-value.
-
-  Inputs:   X: independent variable(s) (Pandas DataFrame Column(s)).
-            y: dependent variable (Pandas DataFrame Column (subset)).
+  Inputs:   X: independent variable(s) (Pandas Series).
+            y: dependent variable (Pandas Series).
             last_index_in_model_1: index of final point in prior to assumed structural break (index value).
             first_index_in_model_2: index of the first point following the assumed structural break (index value).
             significance_level: the significance level for hypothesis testing (float).
-
-
   Outputs:  Chow_Stat: Chow test statistic (float).
             p_value:  p-value associated with Chow test statistic.
             result: a tuple containing the Chow_Stat and associated p-value.
-
   References:
-
   1) Chow, Gregory C. "Tests of equality between sets of coefficients in two linear regressions." 
     Econometrica: Journal of the Econometric Society (1960): 591-605.
   
   '''
   
-  
-  
+  if isinstance(significance_level, float) is False:
+    raise TypeError(" significance_level argument must be a float.")
+  while significance_level not in [0.01, 0.05, 0.1]:
+    raise TypeError("significance_level argument must be 0.01 (1%), 0.05 (5%) or 0.1 (10%).")
+
   def _linear_residuals(X, y):   
     '''
     This sub-function is obtains performance information relating to a linear regression (sklearn).
-
     Inputs:   X: independent variable(s) (Pandas Series' or Pandas DataFrame Column(s)).
               y: dependent variable (Pandas Series or Pandas DataFrame Column).
-
     Outputs:  summary_result: DataFrame containing error information.
   
     '''    
@@ -58,32 +54,30 @@ def chowtest(X, y, last_index_in_model_1, first_index_in_model_2, significance_l
   def _calculate_RSS(X, y):
     '''
     This sub-function returns the sum of squared residuals (errors).
-
     Inputs:   X: independent variable(s) (Pandas Series' or Pandas DataFrame Column(s)).
               y: dependent variable (Pandas Series or Pandas DataFrame Column).
-
     Outputs:  rss: sum of squared residuals (float).
   
     ''' 
 
     # calls the linear_residual function
-    resid_data = linear_residuals(X, y)
+    resid_data = _linear_residuals(X, y)
     # calculates the sum of squared residuals
     rss = resid_data.residuals_sq.sum()
     return rss
 
 
   # calculate RSS for the entire dataset:
-  rss_pooled = calculate_RSS(X, y)
+  rss_pooled = _calculate_RSS(X, y)
     
   # splits the X and y dataframes by input arguments, calculates seperate RSS values:
   X1 = X.loc[:last_index_in_model_1]
   y1 = y.loc[:last_index_in_model_1]
-  rss1 = calculate_RSS(X1, y1)
+  rss1 = _calculate_RSS(X1, y1)
       
   X2 = X.loc[first_index_in_model_2:]
   y2 = y.loc[first_index_in_model_2:]
-  rss2 = calculate_RSS(X2, y2)
+  rss2 = _calculate_RSS(X2, y2)
     
   # determines number of independent variables, plus 1 for the constant in the regression:
   k = X.shape[1] + 1
