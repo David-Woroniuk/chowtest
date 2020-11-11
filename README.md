@@ -1,5 +1,7 @@
 # Chow Test
 
+[![Downloads](https://pepy.tech/badge/chowtest)](https://pepy.tech/project/chowtest) [![Downloads](https://pepy.tech/badge/chowtest/month)](https://pepy.tech/project/chowtest)
+
 This project provides an implementation of the Chow break test.
 
 The Chow test was initially developed by Gregory Chow in 1960 to test whether one regression or two or more regressions best characterise the data. As such, the Chow test is capable of detecting "structural breaks" within time-series. Additional information can be obtained from:
