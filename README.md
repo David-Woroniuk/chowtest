@@ -15,7 +15,7 @@ This implementation supports simple linear models, and finding breaks where k = 
 ### Installation
 
 This module requires Python 3.0+ to run. The module can can be imported by:
-```sh
+```python
 pip install chowtest
 from chow_test import chowtest
 ```
