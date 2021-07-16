@@ -40,7 +40,7 @@ def chowtest(X, y, last_index_in_model_1, first_index_in_model_2, significance_l
     
     # creates a dataframe with the predicted y in a column called y_hat:
     summary_result = pd.DataFrame(columns = ['y_hat'])
-    yhat_list = [float(i[0]) for i in np.ndarray.tolist(model.predict(X))]
+    yhat_list = [i for i in np.ndarray.tolist(model.predict(X))]
     summary_result['y_hat'] = yhat_list  
     # saves the actual y values in the y_actual column:
     summary_result['y_actual'] = y.values
@@ -71,12 +71,12 @@ def chowtest(X, y, last_index_in_model_1, first_index_in_model_2, significance_l
   rss_pooled = _calculate_RSS(X, y)
     
   # splits the X and y dataframes by input arguments, calculates seperate RSS values:
-  X1 = X.loc[:last_index_in_model_1]
-  y1 = y.loc[:last_index_in_model_1]
+  X1 = X[:last_index_in_model_1]
+  y1 = y[:last_index_in_model_1]
   rss1 = _calculate_RSS(X1, y1)
       
-  X2 = X.loc[first_index_in_model_2:]
-  y2 = y.loc[first_index_in_model_2:]
+  X2 = X[first_index_in_model_2:]
+  y2 = y[first_index_in_model_2:]
   rss2 = _calculate_RSS(X2, y2)
     
   # determines number of independent variables, plus 1 for the constant in the regression:
