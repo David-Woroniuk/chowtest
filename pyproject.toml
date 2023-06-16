@@ -1,0 +1,16 @@
+# Project information: PyPI and Pip
+
+[project]
+name = 'chowtest'
+license = {file = "LICENSE"}
+authors = [{name='David Woroniuk'}]
+keywords = []
+classifiers = []
+readme = 'Readme.md'
+version = '0.0.1'
+requires-python = '>= 3.0'
+dependencies = [
+    'scikit-learn',
+    'scipy',
+    'pandas',
+]
